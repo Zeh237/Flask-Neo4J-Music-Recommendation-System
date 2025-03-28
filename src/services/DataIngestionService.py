@@ -157,11 +157,16 @@ class Ingestion:
         self.neo4j_connection.query(query, {"listen_logs": listen_logs})
 
     def load_all_to_neo4j(self):
-        self.create_neo4j_schema()
-        self.load_genres_to_neo4j()
-        self.load_artists_to_neo4j()
-        self.load_users_to_neo4j()
-        self.load_songs_to_neo4j()
-        self.load_song_artists_to_neo4j()
-        self.load_song_likes_to_neo4j()
-        self.load_listen_logs_to_neo4j()
+        try:
+            self.create_neo4j_schema()
+            self.load_genres_to_neo4j()
+            self.load_artists_to_neo4j()
+            self.load_users_to_neo4j()
+            self.load_songs_to_neo4j()
+            self.load_song_artists_to_neo4j()
+            self.load_song_likes_to_neo4j()
+            self.load_listen_logs_to_neo4j()
+            return {"message": "database setup successfully"}
+        except Exception as e:
+            return {"message": f"{str(e)}"}
+
